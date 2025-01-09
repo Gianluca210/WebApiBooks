@@ -1,0 +1,21 @@
+meta {
+  name: Crear Libro
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{URL}}/Books/Create
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    
+    "title": "Assasins Creed",
+    "publishDate": "2025-01-09T19:59:37.298Z",
+    "description": "nice",
+    "idAuthor": 1
+  }
+}

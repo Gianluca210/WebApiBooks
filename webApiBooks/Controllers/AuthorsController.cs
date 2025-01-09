@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using webApiBooks.dto;
 using webApiBooks.models;
 
 namespace webApiBooks.Controllers {
@@ -33,11 +34,13 @@ namespace webApiBooks.Controllers {
         [Route("See")]
         public async Task<IActionResult> SeeAuthors(int Id) {
             Authors authors = await _context.Authors.FindAsync(Id);
-
+            IQueryable<Books> books = _context.Books.Where(x=>x.IdAuthor==Id);
+            var dto = new AuthorsDto() {Id = authors.Id, Name = authors.Name, LastName = authors.LastName, Birthdate = authors.Birthdate, LibrosDelAutor = books, RegisterDate = authors.RegisterDate};
             if (authors == null) {
                 return NotFound();
             }
-            return Ok(authors);
+            return Ok(dto);
+            
         }
 
         [HttpPut]
